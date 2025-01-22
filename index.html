@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夢アプリ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>夢アプリ</h1>
+        <p id="date">2025年1月22日</p>
+    </header>
+
+    <div class="dream-input">
+        <textarea id="dream-text" placeholder="今日見た夢を書いてください..."></textarea>
+        <button id="save-dream">編集完了 (保存)</button>
+    </div>
+
+    <div class="dream-output">
+        <h2>生成されたイラスト:</h2>
+        <img id="dream-image" src="" alt="夢のイラスト">
+    </div>
+
+    <div class="menu">
+        <button id="view-previous-dream">← 昨日の夢</button>
+        <button id="view-profile">プロフィール</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
