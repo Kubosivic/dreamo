@@ -63,30 +63,144 @@
       background-color: #2980b9;
     }
 
-    footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #ecf0f1;
-      font-size: 14px;
-    }
+   
+  
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #6200ea;
+            color: white;
+        }
+        .menu-icon {
+            cursor: pointer;
+        }
+        #menu {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 200px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 100;
+        }
+        #menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+        }
+        #menu a:hover {
+            background-color: #f0f0f0;
+        }
+        main {
+            padding: 20px;
+        }
+        .date-display {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+        .day {
+            border: 1px solid #ddd;
+            background-color: white;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .day:hover {
+            background-color: #e0e0e0;
+        }
+        .profile {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .profile input, .profile textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
   </style>
 </head>
 <body>
   <header>
     <h1>Dream Journal</h1>
-    <p>Write down your dreams and discover others!</p>
+    <div class="menu-icon" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
   </header>
 
-  <div class="main-content">
-    <div class="input-area">
-      <textarea placeholder="Describe your dream..." rows="4"></textarea>
-      <button>Save and Generate Illustration</button>
-    </div>
+  <div id="menu">
+    <a href="#" onclick="showCalendar()">Calendar</a>
+    <a href="#" onclick="showProfile()">Profile</a>
+</div>
 
-    <footer>
-      <p>© 2025 Dream Journal. All rights reserved.</p>
-    </footer>
-  </div>
+<main>
+    <div class="date-display" id="currentDate"></div>
+    <div id="content">
+        <!-- Content will dynamically change -->
+    </div>
+</main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const dateDisplay = document.getElementById('currentDate');
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString('en-US', {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+        dateDisplay.textContent = formattedDate;
+    });
+
+    function toggleMenu() {
+        const menu = document.getElementById('menu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function showCalendar() {
+        const content = document.getElementById('content');
+        const daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+        let calendarHTML = '<div class="calendar">';
+        for (let day = 1; day <= daysInMonth; day++) {
+            calendarHTML += `<div class="day" onclick="showDream(${day})">${day}</div>`;
+        }
+        calendarHTML += '</div>';
+        content.innerHTML = calendarHTML;
+    }
+
+    function showProfile() {
+        const content = document.getElementById('content');
+        content.innerHTML = `
+            <div class="profile">
+                <h2>Profile</h2>
+                <input type="text" placeholder="Nickname">
+                <input type="text" placeholder="Gender">
+                <textarea placeholder="Favorite dreams"></textarea>
+                <textarea placeholder="Nightmares"></textarea>
+            </div>
+        `;
+    }
+
+    function showDream(day) {
+        const content = document.getElementById('content');
+        content.innerHTML = `<h2>Dream from Day ${day}</h2><p>No dream logged for this day yet.</p>`;
+    }
+</script>
+
 </body>
 </html>
 
